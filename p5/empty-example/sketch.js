@@ -6,7 +6,7 @@ function setup() {
 function draw() {
 	background(0)
   // put drawing code here
-  ellipse(mouseX, mouseY, 50, 50);
+  ellipse(mouseX, mouseY, 20, 20);
 }
 
 function windowResized() {
