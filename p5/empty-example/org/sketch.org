@@ -1,0 +1,74 @@
+#+LANGUAGE: ru
+#+TITLE: P5JS sketch 01
+#+AUTHOR: Alex Lipovka
+#+EMAIL: alex.lipovka@gmail.com
+
+* Введение
+
+Это мой =.emacs= файл, написанный в стиле literate programming.
+
+Экспорт исходников в файл настройки горячей клавишей =C-c C-v t=.
+
+* Общие настройки
+
+** Расположение файлов
+
+#+BEGIN_SRC javascript
+let capture;
+
+function setup() {
+    createCanvas(windowWidth, windowHeight);
+    capture = createCapture(VIDEO);
+    capture.size(640, 480);
+}
+
+function draw() {
+    background(0);
+    image(capture, 0, 0);
+    filter(INVERT);
+    ellipseMode(CENTER);
+    ellipse(mouseX, mouseY, 20, 20);
+}
+
+function windowResized() {
+    resizeCanvas(windowWidth, windowHeight);
+}
+#+END_SRC
+
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>p5.js example</title>
+  <style>
+    html, body {
+      padding: 0;
+      margin: 0;
+    }
+    canvas {
+      display: block;
+    }
+  </style>
+  <script src="../p5.js"></script>
+  <script src="sketch_01.js"></script>
+</head>
+
+<body>
+</body>
+
+</html>
+#+END_SRC
+
+* Завершение
+
+#+DESCRIPTION: A literate programming approach to p5js coding
+#+PROPERTY:    header-args:javascript  :tangle ../sketch_01.js
+#+PROPERTY:    header-args:html :tangle ../index_01.html
+#+PROPERTY:    header-args:shell  :tangle no
+#+PROPERTY:    header-args        :results silent   :eval no-export   :comments org
+#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
