@@ -14,6 +14,8 @@
 # Эта строчка добавляет определение стиля, чтобы таблица после сворачивания/разворачивания использовала свои стили, а не display:block
 #+HTML_HEAD_EXTRA: <style type="text/css">.collapse.in {display:table}</style>
 
+#+EXPORT_FILE_NAME:  ../index.html
+
 #+TITLE: Креативное программирование
 #+AUTHOR: Липовка Алексей Юрьевич
 #+EMAIL: alex.lipovka@gmail.com
@@ -22,4 +24,4 @@
 
 ** p5.js
 
-1. [[./p5/empty-example/index.html][Базовый скетч с вебкамерой]]
+1. [[./p5/empty-example/index.html][Базовый скетч с вебкамерой]] ([[./p5/empty-example/org/sketch.html][описание]])
