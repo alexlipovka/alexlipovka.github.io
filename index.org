@@ -1,0 +1,25 @@
+#+OPTIONS: ^:nil
+
+# Отключение последнего блока (дата создания, автор, система)
+#+OPTIONS: html-postamble:nil
+
+# На выбор два варианта: без таблицы содержания
+#+OPTIONS: toc:nil num:nil
+# .. и с таблицей (whn показывает до какого уровня заголовки должны нумероваться)
+# #+OPTIONS: num:6 whn:0 toc:6 H:6
+
+#+LANGUAGE: ru
+#+LATEX_CLASS: scrbook
+
+# Эта строчка добавляет определение стиля, чтобы таблица после сворачивания/разворачивания использовала свои стили, а не display:block
+#+HTML_HEAD_EXTRA: <style type="text/css">.collapse.in {display:table}</style>
+
+#+TITLE: Креативное программирование
+#+AUTHOR: Липовка Алексей Юрьевич
+#+EMAIL: alex.lipovka@gmail.com
+
+* Список уроков по креативному программированию
+
+** p5.js
+
+1. [[./p5/empty-example/index.html][Базовый скетч с вебкамерой]]
