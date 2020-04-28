@@ -5,35 +5,11 @@
 
 * Введение
 
-Это мой =.emacs= файл, написанный в стиле literate programming.
+Пример написания программ с помощью p5js в стиле literate programming.
 
-Экспорт исходников в файл настройки горячей клавишей =C-c C-v t=.
+Экспорт исходников в файл настройки горячей клавишей =C-c C-v C-t=.
 
-* Общие настройки
-
-** Расположение файлов
-
-#+BEGIN_SRC javascript
-let capture;
-
-function setup() {
-    createCanvas(windowWidth, windowHeight);
-    capture = createCapture(VIDEO);
-    capture.size(640, 480);
-}
-
-function draw() {
-    background(0);
-    image(capture, 0, 0);
-    filter(INVERT);
-    ellipseMode(CENTER);
-    ellipse(mouseX, mouseY, 20, 20);
-}
-
-function windowResized() {
-    resizeCanvas(windowWidth, windowHeight);
-}
-#+END_SRC
+* Базовый HTML-документ
 
 #+BEGIN_SRC html
 <!DOCTYPE html>
@@ -43,17 +19,24 @@ function windowResized() {
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>p5.js example</title>
-  <style>
-    html, body {
-      padding: 0;
-      margin: 0;
-    }
-    canvas {
-      display: block;
-    }
-  </style>
+#+END_SRC
+
+Добавим ссылку на таблицу стилей.
+
+#+BEGIN_SRC html
+  <link rel="stylesheet" href="./styles_01.css">
+#+END_SRC
+
+А также на библиотеку P5JS и на исходный код нашей программы.
+
+#+BEGIN_SRC html
   <script src="../p5.js"></script>
   <script src="sketch_01.js"></script>
+#+END_SRC
+
+И завершение базового файла.
+
+#+BEGIN_SRC html
 </head>
 
 <body>
@@ -62,11 +45,89 @@ function windowResized() {
 </html>
 #+END_SRC
 
+* Таблица стилей
+
+Таблица стилей будет вынесена в отдельный файл для большей практичности.
+
+Сейчас основная задача — убрать поля и полосы прокрутки, которые возникнут и будт мешать восприятию, если ничего не предпринять.
+
+#+BEGIN_SRC css
+html {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+canvas {
+    display: block;
+}
+video {
+    display: block;
+}
+
+#+END_SRC
+
+* Скетч
+
+** Основы
+
+Проект на Processing (а также и P5JS) включает в обязательном порядке две функции.
+
+=setup()= запускается только один раз в самом начале.
+
+#+BEGIN_SRC javascript :tangle no
+function setup() {
+}
+#+END_SRC
+
+=draw()= запускается 60 раз в секунду. Это функция отрисовки кадра.
+
+#+BEGIN_SRC javascript :tangle no
+function draw() {
+}
+#+END_SRC
+
+** Подключаем изображение с вебкамеры
+
+#+BEGIN_SRC javascript
+let capture; //переменная, которая хранит подключение к вебкамере
+
+function setup() {
+    //стандартное создание области рисования размеров с текущее окно
+    createCanvas(windowWidth, windowHeight);
+    //подключение к вебкамере
+    capture = createCapture(VIDEO);
+    //включение вебкамеры и запуск видеопотока определенного размера
+    capture.size(640, 480);
+}
+
+function draw() {
+    //заливка однородным тоном
+    background(0);
+    //отрисовка последнего полученного кадра
+    image(capture, 0, 0, 640, 480);
+    //включение фильтра инверсии
+    filter(INVERT);
+    //отрисовка курсора
+    ellipseMode(CENTER);
+    ellipse(mouseX, mouseY, 20, 20);
+}
+
+function windowResized() {
+    //в случае изменения окна надо перестроить область рисования
+    resizeCanvas(windowWidth, windowHeight);
+}
+#+END_SRC
+
+
 * Завершение
 
 #+DESCRIPTION: A literate programming approach to p5js coding
 #+PROPERTY:    header-args:javascript  :tangle ../sketch_01.js
 #+PROPERTY:    header-args:html :tangle ../index_01.html
+#+PROPERTY:    header-args:css :tangle ../styles_01.css
 #+PROPERTY:    header-args:shell  :tangle no
 #+PROPERTY:    header-args        :results silent   :eval no-export   :comments org
 #+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
