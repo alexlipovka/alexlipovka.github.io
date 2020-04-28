@@ -1,20 +1,13 @@
-let capture;
-
 function setup() {
   // put setup code here
   createCanvas(windowWidth, windowHeight);
-  capture = createCapture(VIDEO);
-  capture.size(640, 480);
 }
 
-function draw() { 
-	background(255);
+function draw() {
+	background(0)
   // put drawing code here
-
-  image(capture, 0, 0);
-  filter(INVERT);
   ellipseMode(CENTER);
-  ellipse(mouseX, mouseY, 200, 200);
+  ellipse(mouseX, mouseY, 100, 100);
 }
 
 function windowResized() {
