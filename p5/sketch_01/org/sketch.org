@@ -5,7 +5,7 @@
 
 * Введение
 
-[[http:sketch.org][Пример]] написания программ p5.js с помощью [[https://www.gnu.org/software/emacs/][emacs]] (и [[https://orgmode.org/][orgmode]]) в стиле [[http://www.literateprogramming.com/][literate programming]].
+[[rel:./sketch.org][Пример]] написания программ p5.js с помощью [[https://www.gnu.org/software/emacs/][emacs]] (и [[https://orgmode.org/][orgmode]]) в стиле [[http://www.literateprogramming.com/][literate programming]].
 
 Экспорт исходников в файл настройки горячей клавишей =C-c C-v C-t=.
 
