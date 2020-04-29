@@ -24,4 +24,4 @@
 
 ** p5.js
 
-1. [[./p5/empty-example/index.html][Базовый скетч с вебкамерой]] ([[./p5/empty-example/org/sketch.html][описание]])
+1. [[./p5/sketch_01/index.html][Базовый скетч с вебкамерой]] ([[./p5/sketch_01/org/sketch.html][описание]])
