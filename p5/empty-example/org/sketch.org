@@ -1,11 +1,11 @@
 #+LANGUAGE: ru
-#+TITLE: P5JS sketch 01
+#+TITLE: p5.js sketch 01
 #+AUTHOR: Alex Lipovka
 #+EMAIL: alex.lipovka@gmail.com
 
 * Введение
 
-Пример написания программ с помощью p5js в стиле literate programming.
+Пример написания программ с помощью p5.js в стиле literate programming.
 
 Экспорт исходников в файл настройки горячей клавишей =C-c C-v C-t=.
 
