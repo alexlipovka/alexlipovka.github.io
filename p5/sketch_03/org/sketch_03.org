@@ -1,0 +1,140 @@
+#+LANGUAGE: ru
+#+TITLE: p5.js sketch 03
+#+AUTHOR: Alex Lipovka
+#+EMAIL: alex.lipovka@gmail.com
+
+* Введение
+
+Продолжение цикла программирования на p5.js с помощью [[https://www.gnu.org/software/emacs/][emacs]] с [[https://orgmode.org/][orgmode]] в стиле [[http://www.literateprogramming.com/][literate programming]].
+
+[[rel:./sketch_03.org][Исходный код данной страницы]] и [[../index.html][результат]]. 
+
+Экспорт исходного кода из данного файла сочемтанием клавиш =C-c C-v C-t=.
+
+* Базовый HTML-документ
+
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>p5.js sketch 03</title>
+#+END_SRC
+
+Добавим ссылку на таблицу стилей.
+
+#+BEGIN_SRC html
+  <link rel="stylesheet" href="./styles.css">
+#+END_SRC
+
+А также ссылки на библиотеку p5.js и на исходный код нашей программы.
+
+#+BEGIN_SRC html
+  <script src="../p5.js"></script>
+  <script src="./sketch.js"></script>
+#+END_SRC
+
+И завершение базового файла.
+
+#+BEGIN_SRC html
+</head>
+
+<body>
+</body>
+
+</html>
+#+END_SRC
+
+* Таблица стилей
+
+Таблица стилей будет вынесена в отдельный файл для большей практичности.
+
+Сейчас основная задача — убрать поля и полосы прокрутки, которые возникнут и будт мешать восприятию, если ничего не предпринять.
+
+#+BEGIN_SRC css
+html {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+canvas {
+    display: block;
+}
+video {
+    display: block;
+}
+
+#+END_SRC
+
+* Скетч
+
+** Настройка области рисования
+
+Настраиваем область рисования. Сразу же сделаем заливку белым цветом.
+
+#+BEGIN_SRC javascript
+function setup() {
+    //стандартное создание области рисования размеров с текущее окно
+    createCanvas(windowWidth, windowHeight);
+    background(255);
+}
+#+END_SRC
+
+** Рисуем квадратики
+
+Рисование будет только при нажатой левой клавише мыши.
+
+#+BEGIN_SRC javascript
+function draw() {
+    fill(100);
+    textSize(16);
+    text('ЛКМ — рисование\nПРОБЕЛ — сброс', 10, 10, 300, 100);
+    noStroke(); //отключаем отрисовку обводок
+    fill(160);
+    rectMode(CORNERS);
+    if(mouseIsPressed) {
+        if(mouseButton === LEFT) {
+            rect(mouseX, mouseY, pmouseX, pmouseY);
+        }
+    }
+    if(keyIsPressed) {
+        if(key === ' ') {
+            background(255);
+        }
+    }
+}
+#+END_SRC
+
+** Обработка изменения размера окна
+
+#+BEGIN_SRC javascript
+function windowResized() {
+    //в случае изменения окна надо перестроить область рисования
+    resizeCanvas(windowWidth, windowHeight);
+}
+#+END_SRC
+
+
+* Общие настройки файла                                            :noexport:
+
+#+DESCRIPTION: A literate programming approach to p5js coding
+#+PROPERTY:    header-args:javascript  :tangle ../sketch.js
+#+PROPERTY:    header-args:html :tangle ../index.html
+#+PROPERTY:    header-args:css :tangle ../styles.css
+#+PROPERTY:    header-args:shell  :tangle no
+#+PROPERTY:    header-args        :results silent   :eval no-export   :comments org
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+
+#+OPTIONS:     todo:nil tasks:nil tags:nil
+
+# На выбор два варианта: без таблицы содержания
+# #+OPTIONS: toc:nil num:nil
+# .. и с таблицей (whn показывает до какого уровня заголовки должны нумероваться)
+#+OPTIONS: num:6 whn:0 toc:6 H:6
+
