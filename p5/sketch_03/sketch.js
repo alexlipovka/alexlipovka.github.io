@@ -33,6 +33,22 @@ function draw() {
     }
 }
 
+
+
+// Добавим поддержку устройств с сенсорными экранами.
+
+
+function touchMoved() {
+    fill(160);
+    rect(mouseX, mouseY, pmouseX, pmouseY);
+}
+
+function touchStarted() {
+    if(touches === 2) {
+        background(255);
+    }
+}
+
 // Обработка изменения размера окна
 
 

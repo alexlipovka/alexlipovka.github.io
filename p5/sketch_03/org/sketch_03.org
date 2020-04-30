@@ -110,6 +110,21 @@ function draw() {
 }
 #+END_SRC
 
+Добавим поддержку устройств с сенсорными экранами.
+
+#+BEGIN_SRC javascript
+function touchMoved() {
+    fill(160);
+    rect(mouseX, mouseY, pmouseX, pmouseY);
+}
+
+function touchStarted() {
+    if(touches === 2) {
+        background(255);
+    }
+}
+#+END_SRC
+
 ** Обработка изменения размера окна
 
 #+BEGIN_SRC javascript
