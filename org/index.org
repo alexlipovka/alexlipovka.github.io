@@ -25,3 +25,4 @@
 ** p5.js
 
 1. [[./p5/sketch_01/index.html][Базовый скетч с вебкамерой]] ([[./p5/sketch_01/org/sketch.html][описание]])
+2. [[./p5/sketch_02/index.html][Работа с цветом, модели RGB и HSB]] ([[./p5/sketch_02/org/sketch_02.html][описание]])
