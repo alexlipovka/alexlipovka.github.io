@@ -26,3 +26,4 @@
 
 1. [[./p5/sketch_01/index.html][Базовый скетч с вебкамерой]] ([[./p5/sketch_01/org/sketch.html][описание]])
 2. [[./p5/sketch_02/index.html][Работа с цветом, модели RGB и HSB]] ([[./p5/sketch_02/org/sketch_02.html][описание]])
+3. [[./p5/sketch_03/index.html][Мышка и клавиатура — простейший холст для рисования]] ([[./p5/sketch_03/org/sketch_03.html][описание]])
