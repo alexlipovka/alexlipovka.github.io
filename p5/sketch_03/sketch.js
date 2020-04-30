@@ -44,7 +44,7 @@ function touchMoved() {
 }
 
 function touchStarted() {
-    if(touches === 2) {
+    if(touches.length === 2) {
         background(255);
     }
 }
