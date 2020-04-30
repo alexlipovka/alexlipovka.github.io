@@ -5,9 +5,16 @@
 
 * Введение
 
-[[rel:./sketch.org][Пример]] написания программ p5.js с помощью [[https://www.gnu.org/software/emacs/][emacs]] (и [[https://orgmode.org/][orgmode]]) в стиле [[http://www.literateprogramming.com/][literate programming]].
+Пример программирования на p5.js с помощью [[https://www.gnu.org/software/emacs/][emacs]] и [[https://orgmode.org/][orgmode]] в стиле [[http://www.literateprogramming.com/][literate programming]].
+
+[[rel:./sketch_02.org][Исходный код данной страницы]] и [[../index.html][результат]]. 
 
 Экспорт исходников в файл настройки горячей клавишей =C-c C-v C-t=.
+
+p5.js это библиотека на языке JavaScript. Разработка приложений ведется в веб-окружении, требуется html5-документ, в котором будет создан элемент =canvas=. Таким образом, минимальное приложение на p5.js состоит из:
+- html-документа;
+- таблицы стилей (css);
+- скетча (приложения на JavaScript).
 
 * Базовый HTML-документ
 
@@ -18,7 +25,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>p5.js example</title>
+  <title>p5.js sketch 01</title>
 #+END_SRC
 
 Добавим ссылку на таблицу стилей.
@@ -27,11 +34,11 @@
   <link rel="stylesheet" href="./styles.css">
 #+END_SRC
 
-А также на библиотеку P5JS и на исходный код нашей программы.
+А также ссылки на библиотеку p5.js и на исходный код нашей программы.
 
 #+BEGIN_SRC html
   <script src="../p5.js"></script>
-  <script src="sketch.js"></script>
+  <script src="./sketch.js"></script>
 #+END_SRC
 
 И завершение базового файла.
@@ -73,7 +80,7 @@ video {
 
 ** Основы
 
-Проект на Processing (а также и P5JS) включает в обязательном порядке две функции.
+Проект на p5.js (как и на Processing) включает в обязательном порядке минимум две функции:
 
 =setup()= запускается только один раз в самом начале.
 
@@ -131,6 +138,13 @@ function windowResized() {
 #+PROPERTY:    header-args:css :tangle ../styles.css
 #+PROPERTY:    header-args:shell  :tangle no
 #+PROPERTY:    header-args        :results silent   :eval no-export   :comments org
-#+OPTIONS:     num:nil toc:nil todo:nil tasks:nil tags:nil
 #+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
 #+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+
+#+OPTIONS:     todo:nil tasks:nil tags:nil
+
+# На выбор два варианта: без таблицы содержания
+# #+OPTIONS: toc:nil num:nil
+# .. и с таблицей (whn показывает до какого уровня заголовки должны нумероваться)
+#+OPTIONS: num:6 whn:0 toc:6 H:6
+
