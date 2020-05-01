@@ -117,7 +117,7 @@ function getFontFromGoogle(fontName) {
 var fontNames = ['Poiret One', 'Lobster', 'Pacifico', 'Yanone Kaffeesatz', 'Amatic SC'];
 #+END_SRC
 
-С использованием определенной выше фукнции подключим шрифты по списку.
+С использованием определенной выше функции подключим шрифты по списку.
 
 #+BEGIN_SRC javascript
 function setup() {
