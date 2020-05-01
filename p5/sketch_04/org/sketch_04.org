@@ -1,4 +1,4 @@
-x#+LANGUAGE: ru
+#+LANGUAGE: ru
 #+TITLE: p5.js sketch 04
 #+AUTHOR: Alex Lipovka
 #+EMAIL: alex.lipovka@gmail.com
