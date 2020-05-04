@@ -1,0 +1,195 @@
+
+* Введение
+
+Продолжение цикла программирования на p5.js с помощью [[https://www.gnu.org/software/emacs/][emacs]] с [[https://orgmode.org/][orgmode]] в стиле [[http://www.literateprogramming.com/][literate programming]].
+
+[[rel:./sketch_05.org][Исходный код данной страницы]] и [[../index.html][результат]]. 
+
+Экспорт исходного кода из данного файла сочетанием клавиш =C-c C-v C-t=.
+
+В данном примере рассматриваются возможности типографики и получения метрики шрифтов средствами p5.js. В частности, способы подключения разных шрифтов в проект.
+
+В целом можно выделить два принципиально разных подхода:
+1. Использование локальных копий шрифтов (хранение файлов шрифтов на хостинге).
+2. Использование онлайн-шрифтов.
+
+* Базовый HTML-документ
+
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>p5.js sketch 05</title>
+#+END_SRC
+
+Добавим ссылку на таблицу стилей.
+
+#+BEGIN_SRC html
+  <link rel="stylesheet" href="./styles.css">
+#+END_SRC
+
+А также ссылки на библиотеку p5.js и на исходный код нашей программы.
+
+#+BEGIN_SRC html
+  <script src="../p5.js"></script>
+  <script src="./sketch.js"></script>
+#+END_SRC
+
+И завершение базового файла.
+
+#+BEGIN_SRC html
+</head>
+
+<body>
+</body>
+
+</html>
+#+END_SRC
+
+* Таблица стилей
+
+Таблица стилей будет вынесена в отдельный файл для большей практичности.
+
+Сейчас основная задача — убрать поля и полосы прокрутки, которые возникнут и будт мешать восприятию, если ничего не предпринять.
+
+#+BEGIN_SRC css
+html {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+canvas {
+    display: block;
+}
+video {
+    display: block;
+}
+#+END_SRC
+
+* Скетч
+
+** Настройка области рисования
+
+Настраиваем область рисования и загружаем шрифты.
+
+<<var2>> *2-й вариант*. Написание функции, которая будет модифицировать html-документ и формировать ссылки правильного вида для подключения требуемых шрифтов. Данная функция написана на основе [[https://editor.p5js.org/Roxanne/sketches/r1MCtfFp7][данной работы]].
+
+#+BEGIN_SRC javascript
+function getFontFromGoogle(fontName) {
+    let link = document.createElement("link");
+    link.id = 'font';
+    link.href = "https://fonts.googleapis.com/css?family=" + fontName + '&display=swap';
+    console.log(link.href);
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    link.addEventListener('load', function () {
+        console.log('font ' + fontName + ' loaded');
+    });
+}
+#+END_SRC
+
+Подготовим список шрифтов для подключения. Данный список можно расширять, достаточно только знать название требуемого шрифта в библиотеке [[https://fonts.google.com/][Google Fonts]].
+
+#+BEGIN_SRC javascript
+var fontNames = ['Poiret One', 'Lobster', 'Pacifico', 'Yanone Kaffeesatz', 'Amatic SC'];
+#+END_SRC
+
+С использованием определенной выше функции подключим шрифты по списку.
+
+#+BEGIN_SRC javascript
+function setup() {
+    //стандартное создание области рисования размеров с текущее окно
+    createCanvas(windowWidth, windowHeight);
+    background(255);
+    for(let i = 0; i < fontNames.length; i++) {
+        getFontFromGoogle(fontNames[i]);
+    }
+}
+#+END_SRC
+
+** Отображение текста
+
+Выведем текст с использованием подключенных шрифтов.
+
+#+BEGIN_SRC javascript
+function draw() {
+    let pos = new p5.Vector(10, 0);
+    
+    background(255);
+
+    for(let i = 0; i < fontNames.length; i++) {
+        fill(0);
+        textFont(fontNames[i]);
+        let fs = map(mouseX, 0, width, 6, 600);
+        textSize(fs);
+        let str = 'Шрифт — ' + fontNames[i];
+//        pos.x = 10;
+//        pos.y += 10 + i*1.2*fs + textAscent() + textDescent();
+        pos.y += textAscent() + 20;
+        text(str, pos.x, pos.y);//, width, textAscent() + textDescent());
+
+        text_width = textWidth(str);
+        text_ascent = textAscent();
+        text_descent = textDescent();
+        text_height = text_ascent + text_descent;
+        //метрика всей строки
+        noStroke();
+        fill(50);
+        ellipse(pos.x + 0.5, pos.y + 0.5, 7, 7);
+        ellipse(pos.x + text_width + 0.5, pos.y + 0.5, 7, 7);
+        stroke(255);
+        point(pos.x, pos.y);
+        point(pos.x + text_width, pos.y);
+
+        stroke(0, 255, 0);
+        line(pos.x, pos.y - text_ascent, pos.x + text_width, pos.y - text_ascent);
+        line(pos.x, pos.y + text_descent, pos.x + text_width, pos.y + text_descent);
+        pos.y += text_descent;
+
+//        let ch_ext = base_font.getGlyph(str.charAt(i)).topExtent;
+    }
+}
+#+END_SRC
+
+# Надо потестить проект https://github.com/opentypejs/opentype.js метрика, вся геометрия, кернинг, лигатуры и проч.
+
+** Обработка изменения размера окна
+
+#+BEGIN_SRC javascript
+function windowResized() {
+    //в случае изменения окна надо перестроить область рисования
+    resizeCanvas(windowWidth, windowHeight);
+}
+#+END_SRC
+
+
+* Общие настройки файла                                            :noexport:
+
+#+LANGUAGE: ru
+#+TITLE: p5.js sketch 05
+#+AUTHOR: Alex Lipovka
+#+EMAIL: alex.lipovka@gmail.com
+
+#+DESCRIPTION: A literate programming approach to p5js coding
+#+PROPERTY:    header-args:javascript  :tangle ../sketch.js
+#+PROPERTY:    header-args:html :tangle ../index.html
+#+PROPERTY:    header-args:css :tangle ../styles.css
+#+PROPERTY:    header-args:shell  :tangle no
+#+PROPERTY:    header-args        :results silent   :eval no-export   :comments org
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+
+#+OPTIONS:     todo:nil tasks:nil tags:nil
+
+# На выбор два варианта: без таблицы содержания
+# #+OPTIONS: toc:nil num:nil
+# .. и с таблицей (whn показывает до какого уровня заголовки должны нумероваться)
+#+OPTIONS: num:6 whn:0 toc:6 H:6
+

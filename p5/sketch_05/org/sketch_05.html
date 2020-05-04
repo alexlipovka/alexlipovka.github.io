@@ -1,0 +1,456 @@
+<!doctype html>
+<html lang="ru">
+<head>
+<title>p5.js sketch 05</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="generator" content="Org-mode">
+
+<link  href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.5/js/bootstrap.min.js"></script>
+<style type="text/css">
+/* org mode styles on top of twbs */
+
+html {
+    position: relative;
+    min-height: 100%;
+}
+
+body {
+    font-size: 18px;
+    margin-bottom: 105px;
+}
+
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 101px;
+    background-color: #f5f5f5;
+}
+
+footer > div {
+    padding: 10px;
+}
+
+footer p {
+    margin: 0 0 5px;
+    text-align: center;
+    font-size: 16px;
+}
+
+#table-of-contents {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
+blockquote p {
+    font-size: 18px;
+}
+
+pre {
+    font-size: 16px;
+}
+
+.footpara {
+    display: inline-block;
+}
+
+figcaption {
+  font-size: 16px;
+  color: #666;
+  font-style: italic;
+  padding-bottom: 15px;
+}
+
+/* from twbs docs */
+
+.bs-docs-sidebar.affix {
+    position: static;
+}
+@media (min-width: 768px) {
+    .bs-docs-sidebar {
+        padding-left: 20px;
+    }
+}
+
+/* All levels of nav */
+.bs-docs-sidebar .nav > li > a {
+    display: block;
+    padding: 4px 20px;
+    font-size: 14px;
+    font-weight: 500;
+    color: #999;
+}
+.bs-docs-sidebar .nav > li > a:hover,
+.bs-docs-sidebar .nav > li > a:focus {
+    padding-left: 19px;
+    color: #A1283B;
+    text-decoration: none;
+    background-color: transparent;
+    border-left: 1px solid #A1283B;
+}
+.bs-docs-sidebar .nav > .active > a,
+.bs-docs-sidebar .nav > .active:hover > a,
+.bs-docs-sidebar .nav > .active:focus > a {
+    padding-left: 18px;
+    font-weight: bold;
+    color: #A1283B;
+    background-color: transparent;
+    border-left: 2px solid #A1283B;
+}
+
+/* Nav: second level (shown on .active) */
+.bs-docs-sidebar .nav .nav {
+    display: none; /* Hide by default, but at >768px, show it */
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 30px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav > li > a:focus {
+    padding-left: 29px;
+}
+.bs-docs-sidebar .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav > .active:focus > a {
+    padding-left: 28px;
+    font-weight: 500;
+}
+
+/* Nav: third level (shown on .active) */
+.bs-docs-sidebar .nav .nav .nav {
+    padding-bottom: 10px;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a {
+    padding-top: 1px;
+    padding-bottom: 1px;
+    padding-left: 40px;
+    font-size: 12px;
+    font-weight: normal;
+}
+.bs-docs-sidebar .nav .nav .nav > li > a:hover,
+.bs-docs-sidebar .nav .nav .nav > li > a:focus {
+    padding-left: 39px;
+}
+.bs-docs-sidebar .nav .nav .nav > .active > a,
+.bs-docs-sidebar .nav .nav .nav > .active:hover > a,
+.bs-docs-sidebar .nav .nav .nav > .active:focus > a {
+    padding-left: 38px;
+    font-weight: 500;
+}
+
+/* Show and affix the side nav when space allows it */
+@media (min-width: 992px) {
+    .bs-docs-sidebar .nav > .active > ul {
+        display: block;
+    }
+    /* Widen the fixed sidebar */
+    .bs-docs-sidebar.affix,
+    .bs-docs-sidebar.affix-bottom {
+        width: 213px;
+    }
+    .bs-docs-sidebar.affix {
+        position: fixed; /* Undo the static from mobile first approach */
+        top: 20px;
+    }
+    .bs-docs-sidebar.affix-bottom {
+        position: absolute; /* Undo the static from mobile first approach */
+    }
+    .bs-docs-sidebar.affix .bs-docs-sidenav,.bs-docs-sidebar.affix-bottom .bs-docs-sidenav {
+        margin-top: 0;
+        margin-bottom: 0
+    }
+}
+@media (min-width: 1200px) {
+    /* Widen the fixed sidebar again */
+    .bs-docs-sidebar.affix-bottom,
+    .bs-docs-sidebar.affix {
+        width: 263px;
+    }
+}
+</style>
+<script type="text/javascript">
+$(function() {
+    'use strict';
+
+    $('.bs-docs-sidebar li').first().addClass('active');
+
+    $(document.body).scrollspy({target: '.bs-docs-sidebar'});
+
+    $('.bs-docs-sidebar').affix();
+});
+</script>
+</head>
+<body>
+<div id="content" class="container">
+<div class="row"><div class="col-md-9"><h1 class="title">p5.js sketch 05</h1>
+<div id="outline-container-sec-1" class="outline-2">
+<h2 id="sec-1">Введение</h2>
+<div class="outline-text-2" id="text-1">
+<p>
+Продолжение цикла программирования на p5.js с помощью <a href="https://www.gnu.org/software/emacs/">emacs</a> с <a href="https://orgmode.org/">orgmode</a> в стиле <a href="http://www.literateprogramming.com/">literate programming</a>.
+</p>
+
+<p>
+<a href="./sketch_05.org">Исходный код данной страницы</a> и <a href="../index.html">результат</a>. 
+</p>
+
+<p>
+Экспорт исходного кода из данного файла сочетанием клавиш <code>C-c C-v C-t</code>.
+</p>
+
+<p>
+В данном примере рассматриваются возможности типографики и получения метрики шрифтов средствами p5.js. В частности, способы подключения разных шрифтов в проект.
+</p>
+
+<p>
+В целом можно выделить два принципиально разных подхода:
+</p>
+<ol class="org-ol">
+<li>Использование локальных копий шрифтов (хранение файлов шрифтов на хостинге).
+</li>
+<li>Использование онлайн-шрифтов.
+</li>
+</ol>
+</div>
+</div>
+
+<div id="outline-container-sec-2" class="outline-2">
+<h2 id="sec-2">Базовый HTML-документ</h2>
+<div class="outline-text-2" id="text-2">
+<div class="org-src-container">
+
+<pre class="src src-html"><span style="color: #CC9393;">&lt;!DOCTYPE html&gt;</span>
+&lt;<span style="color: #93E0E3;">html</span> <span style="color: #DFAF8F;">lang</span>=<span style="color: #CC9393;">""</span>&gt;
+
+&lt;<span style="color: #93E0E3;">head</span>&gt;
+  &lt;<span style="color: #93E0E3;">meta</span> <span style="color: #DFAF8F;">charset</span>=<span style="color: #CC9393;">"utf-8"</span>&gt;
+  &lt;<span style="color: #93E0E3;">meta</span> <span style="color: #DFAF8F;">name</span>=<span style="color: #CC9393;">"viewport"</span> <span style="color: #DFAF8F;">content</span>=<span style="color: #CC9393;">"width=device-width, initial-scale=1.0"</span>&gt;
+  &lt;<span style="color: #93E0E3;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">p5.js sketch 05</span>&lt;/<span style="color: #93E0E3;">title</span>&gt;
+</pre>
+</div>
+
+<p>
+Добавим ссылку на таблицу стилей.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;<span style="color: #93E0E3;">link</span> <span style="color: #DFAF8F;">rel</span>=<span style="color: #CC9393;">"stylesheet"</span> <span style="color: #DFAF8F;">href</span>=<span style="color: #CC9393;">"./styles.css"</span>&gt;
+</pre>
+</div>
+
+<p>
+А также ссылки на библиотеку p5.js и на исходный код нашей программы.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;<span style="color: #93E0E3;">script</span> <span style="color: #DFAF8F;">src</span>=<span style="color: #CC9393;">"../p5.js"</span>&gt;&lt;/<span style="color: #93E0E3;">script</span>&gt;
+&lt;<span style="color: #93E0E3;">script</span> <span style="color: #DFAF8F;">src</span>=<span style="color: #CC9393;">"./sketch.js"</span>&gt;&lt;/<span style="color: #93E0E3;">script</span>&gt;
+</pre>
+</div>
+
+<p>
+И завершение базового файла.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-html">&lt;/<span style="color: #93E0E3;">head</span>&gt;
+
+&lt;<span style="color: #93E0E3;">body</span>&gt;
+&lt;/<span style="color: #93E0E3;">body</span>&gt;
+
+&lt;/<span style="color: #93E0E3;">html</span>&gt;
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-3" class="outline-2">
+<h2 id="sec-3">Таблица стилей</h2>
+<div class="outline-text-2" id="text-3">
+<p>
+Таблица стилей будет вынесена в отдельный файл для большей практичности.
+</p>
+
+<p>
+Сейчас основная задача — убрать поля и полосы прокрутки, которые возникнут и будт мешать восприятию, если ничего не предпринять.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-css"><span style="color: #93E0E3;">html </span>{
+    <span style="color: #F0DFAF; font-weight: bold;">overflow</span>: hidden;
+    <span style="color: #F0DFAF; font-weight: bold;">overflow-x</span>: hidden;
+}
+<span style="color: #93E0E3;">body </span>{
+    <span style="color: #F0DFAF; font-weight: bold;">padding</span>: 0;
+    <span style="color: #F0DFAF; font-weight: bold;">margin</span>: 0;
+}
+<span style="color: #93E0E3;">canvas </span>{
+    <span style="color: #F0DFAF; font-weight: bold;">display</span>: block;
+}
+<span style="color: #93E0E3;">video </span>{
+    <span style="color: #F0DFAF; font-weight: bold;">display</span>: block;
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4" class="outline-2">
+<h2 id="sec-4">Скетч</h2>
+<div class="outline-text-2" id="text-4">
+</div><div id="outline-container-sec-4-1" class="outline-3">
+<h3 id="sec-4-1">Настройка области рисования</h3>
+<div class="outline-text-3" id="text-4-1">
+<p>
+Настраиваем область рисования и загружаем шрифты.
+</p>
+
+<p>
+<a id="var2" name="var2"></a> <b>2-й вариант</b>. Написание функции, которая будет модифицировать html-документ и формировать ссылки правильного вида для подключения требуемых шрифтов. Данная функция написана на основе <a href="https://editor.p5js.org/Roxanne/sketches/r1MCtfFp7">данной работы</a>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #F0DFAF; font-weight: bold;">function</span> <span style="color: #93E0E3;">getFontFromGoogle</span>(<span style="color: #DFAF8F;">fontName</span>) {
+    <span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #DFAF8F;">link</span> = document.createElement(<span style="color: #CC9393;">"link"</span>);
+    link.id = <span style="color: #CC9393;">'font'</span>;
+    link.href = <span style="color: #CC9393;">"https://fonts.googleapis.com/css?family="</span> + fontName + <span style="color: #CC9393;">'&amp;display=swap'</span>;
+    console.log(link.href);
+    link.rel = <span style="color: #CC9393;">"stylesheet"</span>;
+    document.head.appendChild(link);
+
+    link.addEventListener(<span style="color: #CC9393;">'load'</span>, <span style="color: #F0DFAF; font-weight: bold;">function</span> () {
+        console.log(<span style="color: #CC9393;">'font '</span> + fontName + <span style="color: #CC9393;">' loaded'</span>);
+    });
+}
+</pre>
+</div>
+
+<p>
+Подготовим список шрифтов для подключения. Данный список можно расширять, достаточно только знать название требуемого шрифта в библиотеке <a href="https://fonts.google.com/">Google Fonts</a>.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #F0DFAF; font-weight: bold;">var</span> <span style="color: #DFAF8F;">fontNames</span> = [<span style="color: #CC9393;">'Poiret One'</span>, <span style="color: #CC9393;">'Lobster'</span>, <span style="color: #CC9393;">'Pacifico'</span>, <span style="color: #CC9393;">'Yanone Kaffeesatz'</span>, <span style="color: #CC9393;">'Amatic SC'</span>];
+</pre>
+</div>
+
+<p>
+С использованием определенной выше функции подключим шрифты по списку.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #F0DFAF; font-weight: bold;">function</span> <span style="color: #93E0E3;">setup</span>() {
+    <span style="color: #5F7F5F;">//</span><span style="color: #7F9F7F;">&#1089;&#1090;&#1072;&#1085;&#1076;&#1072;&#1088;&#1090;&#1085;&#1086;&#1077; &#1089;&#1086;&#1079;&#1076;&#1072;&#1085;&#1080;&#1077; &#1086;&#1073;&#1083;&#1072;&#1089;&#1090;&#1080; &#1088;&#1080;&#1089;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103; &#1088;&#1072;&#1079;&#1084;&#1077;&#1088;&#1086;&#1074; &#1089; &#1090;&#1077;&#1082;&#1091;&#1097;&#1077;&#1077; &#1086;&#1082;&#1085;&#1086;</span>
+    createCanvas(windowWidth, windowHeight);
+    background(255);
+    <span style="color: #F0DFAF; font-weight: bold;">for</span>(<span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #DFAF8F;">i</span> = 0; i &lt; fontNames.length; i++) {
+        getFontFromGoogle(fontNames[i]);
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-2" class="outline-3">
+<h3 id="sec-4-2">Отображение текста</h3>
+<div class="outline-text-3" id="text-4-2">
+<p>
+Выведем текст с использованием подключенных шрифтов.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #F0DFAF; font-weight: bold;">function</span> <span style="color: #93E0E3;">draw</span>() {
+    <span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #DFAF8F;">pos</span> = <span style="color: #F0DFAF; font-weight: bold;">new</span> <span style="color: #7CB8BB;">p5.Vector</span>(10, 0);
+
+    background(255);
+
+    <span style="color: #F0DFAF; font-weight: bold;">for</span>(<span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #DFAF8F;">i</span> = 0; i &lt; fontNames.length; i++) {
+        fill(0);
+        textFont(fontNames[i]);
+        <span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #DFAF8F;">fs</span> = map(mouseX, 0, width, 6, 600);
+        textSize(fs);
+        <span style="color: #F0DFAF; font-weight: bold;">let</span> <span style="color: #DFAF8F;">str</span> = <span style="color: #CC9393;">'&#1064;&#1088;&#1080;&#1092;&#1090; &#8212; '</span> + fontNames[i];
+<span style="color: #5F7F5F;">//        </span><span style="color: #7F9F7F;">pos.x = 10;</span>
+<span style="color: #5F7F5F;">//        </span><span style="color: #7F9F7F;">pos.y += 10 + i*1.2*fs + textAscent() + textDescent();</span>
+        pos.y += textAscent() + 20;
+        text(str, pos.x, pos.y);<span style="color: #5F7F5F;">//</span><span style="color: #7F9F7F;">, width, textAscent() + textDescent());</span>
+
+        text_width = textWidth(str);
+        text_ascent = textAscent();
+        text_descent = textDescent();
+        text_height = text_ascent + text_descent;
+        <span style="color: #5F7F5F;">//</span><span style="color: #7F9F7F;">&#1084;&#1077;&#1090;&#1088;&#1080;&#1082;&#1072; &#1074;&#1089;&#1077;&#1081; &#1089;&#1090;&#1088;&#1086;&#1082;&#1080;</span>
+        noStroke();
+        fill(50);
+        ellipse(pos.x + 0.5, pos.y + 0.5, 7, 7);
+        ellipse(pos.x + text_width + 0.5, pos.y + 0.5, 7, 7);
+        stroke(255);
+        point(pos.x, pos.y);
+        point(pos.x + text_width, pos.y);
+
+        stroke(0, 255, 0);
+        line(pos.x, pos.y - text_ascent, pos.x + text_width, pos.y - text_ascent);
+        line(pos.x, pos.y + text_descent, pos.x + text_width, pos.y + text_descent);
+        pos.y += text_descent;
+
+<span style="color: #5F7F5F;">//        </span><span style="color: #7F9F7F;">let ch_ext = base_font.getGlyph(str.charAt(i)).topExtent;</span>
+    }
+}
+</pre>
+</div>
+</div>
+</div>
+
+<div id="outline-container-sec-4-3" class="outline-3">
+<h3 id="sec-4-3">Обработка изменения размера окна</h3>
+<div class="outline-text-3" id="text-4-3">
+<div class="org-src-container">
+
+<pre class="src src-javascript"><span style="color: #F0DFAF; font-weight: bold;">function</span> <span style="color: #93E0E3;">windowResized</span>() {
+    <span style="color: #5F7F5F;">//</span><span style="color: #7F9F7F;">&#1074; &#1089;&#1083;&#1091;&#1095;&#1072;&#1077; &#1080;&#1079;&#1084;&#1077;&#1085;&#1077;&#1085;&#1080;&#1103; &#1086;&#1082;&#1085;&#1072; &#1085;&#1072;&#1076;&#1086; &#1087;&#1077;&#1088;&#1077;&#1089;&#1090;&#1088;&#1086;&#1080;&#1090;&#1100; &#1086;&#1073;&#1083;&#1072;&#1089;&#1090;&#1100; &#1088;&#1080;&#1089;&#1086;&#1074;&#1072;&#1085;&#1080;&#1103;</span>
+    resizeCanvas(windowWidth, windowHeight);
+}
+</pre>
+</div>
+</div>
+</div>
+</div>
+</div><div class="col-md-3"><nav id="table-of-contents">
+<div id="text-table-of-contents" class="bs-docs-sidebar">
+<ul class="nav">
+<li><a href="#sec-1">Введение</a></li>
+<li><a href="#sec-2">Базовый HTML-документ</a></li>
+<li><a href="#sec-3">Таблица стилей</a></li>
+<li><a href="#sec-4">Скетч</a>
+<ul class="nav">
+<li><a href="#sec-4-1">Настройка области рисования</a></li>
+<li><a href="#sec-4-2">Отображение текста</a></li>
+<li><a href="#sec-4-3">Обработка изменения размера окна</a></li>
+</ul>
+</li>
+</ul>
+</div>
+</nav>
+</div></div></div>
+<footer id="postamble" class="">
+<div></div>
+</footer>
+</body>
+</html>

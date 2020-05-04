@@ -1,0 +1,195 @@
+% Intended LaTeX compiler: xelatex
+\documentclass[11pt]{scrartcl}
+\setcounter{secnumdepth}{6}
+\date{\today}
+\title{p5.js sketch 05}
+\hypersetup{
+ pdfauthor={Alex Lipovka},
+ pdftitle={p5.js sketch 05},
+ pdfkeywords={},
+ pdfsubject={A literate programming approach to p5js coding},
+ pdfcreator={Emacs 26.3 (Org mode 9.1.9)}, 
+ pdflang={Russian}}
+\begin{document}
+
+\maketitle
+\setcounter{tocdepth}{6}
+\tableofcontents
+
+\section{Введение}
+\label{sec:org2e0b15d}
+
+Продолжение цикла программирования на p5.js с помощью \href{https://www.gnu.org/software/emacs/}{emacs} с \href{https://orgmode.org/}{orgmode} в стиле \href{http://www.literateprogramming.com/}{literate programming}.
+
+\href{./sketch\_05.org}{Исходный код данной страницы} и \href{../index.html}{результат}. 
+
+Экспорт исходного кода из данного файла сочетанием клавиш \texttt{C-c C-v C-t}.
+
+В данном примере рассматриваются возможности типографики и получения метрики шрифтов средствами p5.js. В частности, способы подключения разных шрифтов в проект.
+
+В целом можно выделить два принципиально разных подхода:
+\begin{enumerate}
+\item Использование локальных копий шрифтов (хранение файлов шрифтов на хостинге).
+\item Использование онлайн-шрифтов.
+\end{enumerate}
+
+\section{Базовый HTML-документ}
+\label{sec:org3c8d846}
+
+\begin{minted}[breaklines=true,breakanywhere=true]{html}
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>p5.js sketch 05</title>
+\end{minted}
+
+Добавим ссылку на таблицу стилей.
+
+\begin{minted}[breaklines=true,breakanywhere=true]{html}
+<link rel="stylesheet" href="./styles.css">
+\end{minted}
+
+А также ссылки на библиотеку p5.js и на исходный код нашей программы.
+
+\begin{minted}[breaklines=true,breakanywhere=true]{html}
+<script src="../p5.js"></script>
+<script src="./sketch.js"></script>
+\end{minted}
+
+И завершение базового файла.
+
+\begin{minted}[breaklines=true,breakanywhere=true]{html}
+</head>
+
+<body>
+</body>
+
+</html>
+\end{minted}
+
+\section{Таблица стилей}
+\label{sec:orga35528d}
+
+Таблица стилей будет вынесена в отдельный файл для большей практичности.
+
+Сейчас основная задача — убрать поля и полосы прокрутки, которые возникнут и будт мешать восприятию, если ничего не предпринять.
+
+\begin{minted}[breaklines=true,breakanywhere=true]{css}
+html {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+canvas {
+    display: block;
+}
+video {
+    display: block;
+}
+\end{minted}
+
+\section{Скетч}
+\label{sec:org419c7b8}
+
+\subsection{Настройка области рисования}
+\label{sec:org2dd9382}
+
+Настраиваем область рисования и загружаем шрифты.
+
+\label{org7059c9f} \textbf{2-й вариант}. Написание функции, которая будет модифицировать html-документ и формировать ссылки правильного вида для подключения требуемых шрифтов. Данная функция написана на основе \href{https://editor.p5js.org/Roxanne/sketches/r1MCtfFp7}{данной работы}.
+
+\begin{minted}[breaklines=true,breakanywhere=true]{javascript}
+function getFontFromGoogle(fontName) {
+    let link = document.createElement("link");
+    link.id = 'font';
+    link.href = "https://fonts.googleapis.com/css?family=" + fontName + '&display=swap';
+    console.log(link.href);
+    link.rel = "stylesheet";
+    document.head.appendChild(link);
+
+    link.addEventListener('load', function () {
+        console.log('font ' + fontName + ' loaded');
+    });
+}
+\end{minted}
+
+Подготовим список шрифтов для подключения. Данный список можно расширять, достаточно только знать название требуемого шрифта в библиотеке \href{https://fonts.google.com/}{Google Fonts}.
+
+\begin{minted}[breaklines=true,breakanywhere=true]{javascript}
+var fontNames = ['Poiret One', 'Lobster', 'Pacifico', 'Yanone Kaffeesatz', 'Amatic SC'];
+\end{minted}
+
+С использованием определенной выше функции подключим шрифты по списку.
+
+\begin{minted}[breaklines=true,breakanywhere=true]{javascript}
+function setup() {
+    //стандартное создание области рисования размеров с текущее окно
+    createCanvas(windowWidth, windowHeight);
+    background(255);
+    for(let i = 0; i < fontNames.length; i++) {
+        getFontFromGoogle(fontNames[i]);
+    }
+}
+\end{minted}
+
+\subsection{Отображение текста}
+\label{sec:org25c3baa}
+
+Выведем текст с использованием подключенных шрифтов.
+
+\begin{minted}[breaklines=true,breakanywhere=true]{javascript}
+function draw() {
+    let pos = new p5.Vector(10, 0);
+
+    background(255);
+
+    for(let i = 0; i < fontNames.length; i++) {
+        fill(0);
+        textFont(fontNames[i]);
+        let fs = map(mouseX, 0, width, 6, 600);
+        textSize(fs);
+        let str = 'Шрифт — ' + fontNames[i];
+//        pos.x = 10;
+//        pos.y += 10 + i*1.2*fs + textAscent() + textDescent();
+        pos.y += textAscent() + 20;
+        text(str, pos.x, pos.y);//, width, textAscent() + textDescent());
+
+        text_width = textWidth(str);
+        text_ascent = textAscent();
+        text_descent = textDescent();
+        text_height = text_ascent + text_descent;
+        //метрика всей строки
+        noStroke();
+        fill(50);
+        ellipse(pos.x + 0.5, pos.y + 0.5, 7, 7);
+        ellipse(pos.x + text_width + 0.5, pos.y + 0.5, 7, 7);
+        stroke(255);
+        point(pos.x, pos.y);
+        point(pos.x + text_width, pos.y);
+
+        stroke(0, 255, 0);
+        line(pos.x, pos.y - text_ascent, pos.x + text_width, pos.y - text_ascent);
+        line(pos.x, pos.y + text_descent, pos.x + text_width, pos.y + text_descent);
+        pos.y += text_descent;
+
+//        let ch_ext = base_font.getGlyph(str.charAt(i)).topExtent;
+    }
+}
+\end{minted}
+
+\subsection{Обработка изменения размера окна}
+\label{sec:org35775f4}
+
+\begin{minted}[breaklines=true,breakanywhere=true]{javascript}
+function windowResized() {
+    //в случае изменения окна надо перестроить область рисования
+    resizeCanvas(windowWidth, windowHeight);
+}
+\end{minted}
+\end{document}
