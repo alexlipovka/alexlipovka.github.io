@@ -2,7 +2,6 @@
 
 
 let capture; //переменная, которая хранит подключение к вебкамере
-let img;
 
 function setup() {
     //стандартное создание области рисования размеров с текущее окно
@@ -11,13 +10,11 @@ function setup() {
     capture = createCapture(VIDEO);
     //включение вебкамеры и запуск видеопотока определенного размера
     capture.size(640, 480);
-    img = loadImage("./assets/worldbw.jpg");
 }
 
 function draw() {
     //заливка однородным тоном
-    //background(0);
-    image(img, 0, 0, width, height);
+    background(0);
     //отрисовка последнего полученного кадра
     image(capture, width/2 - capture.width/2,
           height/2 - capture.height/2, 640, 480);

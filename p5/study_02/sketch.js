@@ -1,11 +1,12 @@
-let img;
-//let webcam;
+// let img;
+let webcam;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
-  img = loadImage('assets/worldbw.jpg');
-  // webcam = createCapture(VIDEO);
-  // webcam.size(640, 480);
+ // img = loadImage('assets/worldbw.jpg');
+  webcam = createCapture(VIDEO);
+  webcam.size(640, 480);
+  webcam.hide();
 }
 
 function drawRect (rectSize) {
@@ -28,10 +29,8 @@ function drawCursor (num, trans) {
 function draw() {
   background(80);
   // let aspect = webcam.width / webcam.height;
-  image(img, 0, 0, width, height);
+  image(webcam, 0, 0, width, height);
   loadPixels();
-
-
   rectMode(CENTER);
   noStroke();
 
@@ -39,14 +38,17 @@ function draw() {
   translate(mouseX, mouseY);
   
   // fill(map(mouseX, 0, width, 0, 255), map(mouseY, 0, height, 0, 255), 0);
-  fill(get(mouseX, mouseY));
+  let x = round(mouseX);
+  let y = round(mouseY);
+  fill(pixels[y*width*4 + x*4]);
   drawCursor(map(mouseX, 0, width, 1, 32), map(mouseY, 0, height, 50, 200));
   
   fill(0, 255, 0);
   drawRect(90);
   fill(0, 0, 255);
   drawRect(60);
-  fill(255, 0, 0);
+  // fill(255, 0, 0);
+  fill(pixels[y*width*4 + x*4]);
   drawRect(30);
   pop();
 

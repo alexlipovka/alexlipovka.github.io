@@ -196,12 +196,28 @@ $(function() {
 <h2 id="sec-1">Введение</h2>
 <div class="outline-text-2" id="text-1">
 <p>
-<a href="./sketch.org">Пример</a> написания программ p5.js с помощью <a href="https://www.gnu.org/software/emacs/">emacs</a> (и <a href="https://orgmode.org/">orgmode</a>) в стиле <a href="http://www.literateprogramming.com/">literate programming</a>.
+Пример программирования на p5.js с помощью <a href="https://www.gnu.org/software/emacs/">emacs</a> и <a href="https://orgmode.org/">orgmode</a> в стиле <a href="http://www.literateprogramming.com/">literate programming</a>.
+</p>
+
+<p>
+<a href="./sketch_02.org">Исходный код данной страницы</a> и <a href="../index.html">результат</a>. 
 </p>
 
 <p>
 Экспорт исходников в файл настройки горячей клавишей <code>C-c C-v C-t</code>.
 </p>
+
+<p>
+p5.js это библиотека на языке JavaScript. Разработка приложений ведется в веб-окружении, требуется html5-документ, в котором будет создан элемент <code>canvas</code>. Таким образом, минимальное приложение на p5.js состоит из:
+</p>
+<ul class="org-ul">
+<li>html-документа;
+</li>
+<li>таблицы стилей (css);
+</li>
+<li>скетча (приложения на JavaScript).
+</li>
+</ul>
 </div>
 </div>
 
@@ -216,7 +232,7 @@ $(function() {
 &lt;<span style="color: #93E0E3;">head</span>&gt;
   &lt;<span style="color: #93E0E3;">meta</span> <span style="color: #DFAF8F;">charset</span>=<span style="color: #CC9393;">"utf-8"</span>&gt;
   &lt;<span style="color: #93E0E3;">meta</span> <span style="color: #DFAF8F;">name</span>=<span style="color: #CC9393;">"viewport"</span> <span style="color: #DFAF8F;">content</span>=<span style="color: #CC9393;">"width=device-width, initial-scale=1.0"</span>&gt;
-  &lt;<span style="color: #93E0E3;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">p5.js example</span>&lt;/<span style="color: #93E0E3;">title</span>&gt;
+  &lt;<span style="color: #93E0E3;">title</span>&gt;<span style="font-weight: bold; text-decoration: underline;">p5.js sketch 01</span>&lt;/<span style="color: #93E0E3;">title</span>&gt;
 </pre>
 </div>
 
@@ -231,13 +247,13 @@ $(function() {
 </div>
 
 <p>
-А также на библиотеку P5JS и на исходный код нашей программы.
+А также ссылки на библиотеку p5.js и на исходный код нашей программы.
 </p>
 
 <div class="org-src-container">
 
 <pre class="src src-html">&lt;<span style="color: #93E0E3;">script</span> <span style="color: #DFAF8F;">src</span>=<span style="color: #CC9393;">"../p5.js"</span>&gt;&lt;/<span style="color: #93E0E3;">script</span>&gt;
-&lt;<span style="color: #93E0E3;">script</span> <span style="color: #DFAF8F;">src</span>=<span style="color: #CC9393;">"sketch.js"</span>&gt;&lt;/<span style="color: #93E0E3;">script</span>&gt;
+&lt;<span style="color: #93E0E3;">script</span> <span style="color: #DFAF8F;">src</span>=<span style="color: #CC9393;">"./sketch.js"</span>&gt;&lt;/<span style="color: #93E0E3;">script</span>&gt;
 </pre>
 </div>
 
@@ -298,7 +314,7 @@ $(function() {
 <h3 id="sec-4-1">Основы</h3>
 <div class="outline-text-3" id="text-4-1">
 <p>
-Проект на Processing (а также и P5JS) включает в обязательном порядке две функции.
+Проект на p5.js (как и на Processing) включает в обязательном порядке минимум две функции:
 </p>
 
 <p>
