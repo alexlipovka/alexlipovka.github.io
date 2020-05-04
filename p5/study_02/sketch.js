@@ -1,11 +1,11 @@
 let img;
-let webcam;
+//let webcam;
 
 function setup() {
   createCanvas(windowWidth, windowHeight);
   img = loadImage('assets/worldbw.jpg');
-  webcam = createCapture(VIDEO);
-  webcam.size(640, 480);
+  // webcam = createCapture(VIDEO);
+  // webcam.size(640, 480);
 }
 
 function drawRect (rectSize) {
@@ -27,8 +27,8 @@ function drawCursor (num, trans) {
 
 function draw() {
   background(80);
-
-  image(webcam, 0, 0, width, height);
+  // let aspect = webcam.width / webcam.height;
+  image(img, 0, 0, width, height);
 
   rectMode(CENTER);
   noStroke();
