@@ -25,7 +25,7 @@ function drawCursor (num, trans) {
 function draw() {
   background(80);
 
-  image(img, 0, 0);
+  image(img, 0, 0, width, height);
 
   rectMode(CENTER);
   noStroke();
