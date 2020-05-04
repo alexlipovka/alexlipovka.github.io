@@ -29,6 +29,8 @@ function draw() {
   background(80);
   // let aspect = webcam.width / webcam.height;
   image(img, 0, 0, width, height);
+  loadPixels();
+
 
   rectMode(CENTER);
   noStroke();
@@ -36,7 +38,8 @@ function draw() {
   push();
   translate(mouseX, mouseY);
   
-  fill(map(mouseX, 0, width, 0, 255), map(mouseY, 0, height, 0, 255), 0);
+  // fill(map(mouseX, 0, width, 0, 255), map(mouseY, 0, height, 0, 255), 0);
+  fill(get(mouseX, mouseY));
   drawCursor(map(mouseX, 0, width, 1, 32), map(mouseY, 0, height, 50, 200));
   
   fill(0, 255, 0);
