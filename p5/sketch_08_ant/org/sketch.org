@@ -1,0 +1,150 @@
+#+LANGUAGE: ru
+#+TITLE: p5.js sketch 01
+#+AUTHOR: Alex Lipovka
+#+EMAIL: alex.lipovka@gmail.com
+
+* Введение
+
+Пример программирования на p5.js с помощью [[https://www.gnu.org/software/emacs/][emacs]] и [[https://orgmode.org/][orgmode]] в стиле [[http://www.literateprogramming.com/][literate programming]].
+
+[[rel:./sketch_02.org][Исходный код данной страницы]] и [[../index.html][результат]]. 
+
+Экспорт исходников в файл настройки горячей клавишей =C-c C-v C-t=.
+
+p5.js это библиотека на языке JavaScript. Разработка приложений ведется в веб-окружении, требуется html5-документ, в котором будет создан элемент =canvas=. Таким образом, минимальное приложение на p5.js состоит из:
+- html-документа;
+- таблицы стилей (css);
+- скетча (приложения на JavaScript).
+
+* Базовый HTML-документ
+
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html lang="">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>p5.js sketch 01</title>
+#+END_SRC
+
+Добавим ссылку на таблицу стилей.
+
+#+BEGIN_SRC html
+  <link rel="stylesheet" href="./styles.css">
+#+END_SRC
+
+А также ссылки на библиотеку p5.js и на исходный код нашей программы.
+
+#+BEGIN_SRC html
+  <script src="../p5.js"></script>
+  <script src="./sketch.js"></script>
+#+END_SRC
+
+И завершение базового файла.
+
+#+BEGIN_SRC html
+</head>
+
+<body>
+</body>
+
+</html>
+#+END_SRC
+
+* Таблица стилей
+
+Таблица стилей будет вынесена в отдельный файл для большей практичности.
+
+Сейчас основная задача — убрать поля и полосы прокрутки, которые возникнут и будт мешать восприятию, если ничего не предпринять.
+
+#+BEGIN_SRC css
+html {
+    overflow: hidden;
+    overflow-x: hidden;
+}
+body {
+    padding: 0;
+    margin: 0;
+}
+canvas {
+    display: block;
+}
+video {
+    display: block;
+}
+
+#+END_SRC
+
+* Скетч
+
+** Основы
+
+Проект на p5.js (как и на Processing) включает в обязательном порядке минимум две функции:
+
+=setup()= запускается только один раз в самом начале.
+
+#+BEGIN_SRC javascript :tangle no
+function setup() {
+}
+#+END_SRC
+
+=draw()= запускается 60 раз в секунду. Это функция отрисовки кадра.
+
+#+BEGIN_SRC javascript :tangle no
+function draw() {
+}
+#+END_SRC
+
+** Подключаем изображение с вебкамеры
+
+#+BEGIN_SRC javascript
+let capture; //переменная, которая хранит подключение к вебкамере
+
+function setup() {
+    //стандартное создание области рисования размеров с текущее окно
+    createCanvas(windowWidth, windowHeight);
+    //подключение к вебкамере
+    capture = createCapture(VIDEO);
+    //включение вебкамеры и запуск видеопотока определенного размера
+    capture.size(640, 480);
+}
+
+function draw() {
+    //заливка однородным тоном
+    background(0);
+    //отрисовка последнего полученного кадра
+    image(capture, width/2 - capture.width/2,
+          height/2 - capture.height/2, 640, 480);
+    //включение фильтра инверсии
+    filter(INVERT);
+    //отрисовка курсора
+    ellipseMode(CENTER);
+    ellipse(mouseX, mouseY, 20, 20);
+}
+
+function windowResized() {
+    //в случае изменения окна надо перестроить область рисования
+    resizeCanvas(windowWidth, windowHeight);
+}
+#+END_SRC
+
+
+* Общие настройки файла                                            :noexport:
+
+#+DESCRIPTION: A literate programming approach to p5js coding
+#+PROPERTY:    header-args:javascript  :tangle ../sketch.js
+#+PROPERTY:    header-args:html :tangle ../index.html
+#+PROPERTY:    header-args:css :tangle ../styles.css
+#+PROPERTY:    header-args:shell  :tangle no
+#+PROPERTY:    header-args        :results silent   :eval no-export   :comments org
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+
+#+OPTIONS:     todo:nil tasks:nil tags:nil
+
+# На выбор два варианта: без таблицы содержания
+# #+OPTIONS: toc:nil num:nil
+# .. и с таблицей (whn показывает до какого уровня заголовки должны нумероваться)
+#+OPTIONS: num:6 whn:0 toc:6 H:6
+
