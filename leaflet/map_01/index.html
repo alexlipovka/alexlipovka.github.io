@@ -1,0 +1,47 @@
+<!-- Базовый HTML-документ -->
+
+<!-- Начнем написание файла =index.html=, именно этот файл в первую очередь открывает браузер. -->
+
+
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet — map 01</title>
+
+
+
+<!-- Добавим ссылку на нашу таблицу стилей. -->
+
+
+<link rel="stylesheet" href="./styles.css">
+
+
+
+<!-- А также ссылки на таблицу стилей и код библиотеки Leaflet. -->
+
+
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+
+
+
+<!-- И в завершение настройки базового файла надо в тело документа добавить блок =div= с картой. -->
+
+
+</head>
+
+<body>
+  <div id="mapid"></div>
+
+
+
+<!-- А после блока можно добавлять ссылку на исходный код нашей веб-карты. -->
+
+
+<script src="./map.js"></script>
+</body>
+
+</html>

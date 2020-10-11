@@ -1,0 +1,127 @@
+#+LANGUAGE: ru
+#+TITLE: Leaflet — map 01
+#+AUTHOR: Alex Lipovka
+#+EMAIL: alex.lipovka@gmail.com
+
+* Введение
+
+Пример разработки веб-карт на основе бибилиотеки [[https://leafletjs.com/][Leaflet]] с помощью [[https://www.gnu.org/software/emacs/][emacs]] и [[https://orgmode.org/][orgmode]] в стиле [[http://www.literateprogramming.com/][literate programming]].
+
+[[rel:./map_01.org][Исходный код данной страницы]] и [[../index.html][результат]]. 
+
+Экспорт исходников в файл настройки горячей клавишей =C-c C-v C-t=.
+
+Leaflet это библиотека на языке JavaScript с открытым исходным кодом, предназначена для разработки современных интерактивных карт с поддержкой мобильных устройств. Карта помещается в =div= элемент html5-документа. Таким образом, минимальная веб-карта на Leaflet состоит из:
+
+- разметки страницы (html);
+- таблицы стилей (css);
+- веб-карты (приложения на JavaScript).
+
+* Базовый HTML-документ
+
+Начнем написание файла =index.html=, именно этот файл в первую очередь открывает браузер.
+
+#+BEGIN_SRC html
+<!DOCTYPE html>
+<html lang="ru">
+
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Leaflet — map 01</title>
+#+END_SRC
+
+Добавим ссылку на нашу таблицу стилей.
+
+#+BEGIN_SRC html
+  <link rel="stylesheet" href="./styles.css">
+#+END_SRC
+
+А также ссылки на таблицу стилей и код библиотеки Leaflet.
+
+#+BEGIN_SRC html
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css" integrity="sha512-xodZBNTC5n17Xt2atTPuE1HxjVMSvLVW9ocqUKLsCC5CXdbqCmblAshOMAS6/keqq/sMZMZ19scR4PsZChSR7A==" crossorigin=""/>
+<script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js" integrity="sha512-XQoYMqMTK8LvdxXYG3nZ448hOEQiglfqkJs1NOQV44cWnUrBc8PkAOcXy20w0vlaXaVUearIOBhiXZ5V3ynxwA==" crossorigin=""></script>
+#+END_SRC
+
+И в завершение настройки базового файла надо в тело документа добавить блок =div= с картой.
+
+#+BEGIN_SRC html
+</head>
+
+<body>
+  <div id="mapid"></div>
+#+END_SRC
+
+А после блока можно добавлять ссылку на исходный код нашей веб-карты.
+
+#+BEGIN_SRC html
+  <script src="./map.js"></script>
+</body>
+
+</html>
+#+END_SRC
+
+* Таблица стилей
+
+Таблица стилей будет вынесена в отдельный файл для большей практичности.
+
+Сейчас основная задача — убрать поля и полосы прокрутки, которые возникнут и будт мешать восприятию, если ничего не предпринять.
+
+#+BEGIN_SRC css
+body,
+html {
+	margin: auto 0;
+	width: 100%;
+	height: 100%;
+}
+
+#mapid {
+	width: 100%;
+	height: 100%;
+}
+#+END_SRC
+
+* Веб-карта
+
+#+BEGIN_SRC javascript
+var mymap = L.map('mapid').setView([56.03, 92.9], 12);
+// mymap.options.crs = L.CRS.EPSG3395;
+
+// L.tileLayer('http://vec01.maps.yandex.net/tiles?l=map&x={x}&y={y}&z={z}', {
+//     opacity: 1.0,
+//     attribution: '',
+//     minZoom: 1,
+//     maxZoom: 28,
+//     minNativeZoom: 0,
+//     maxNativeZoom: 18
+// }).addTo(mymap);  
+
+L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+    opacity: 1.0,
+    attribution: '<a href="https://www.openstreetmap.org/copyright">© OpenStreetMap contributors, CC-BY-SA</a>',
+    minZoom: 1,
+    maxZoom: 28,
+    minNativeZoom: 0,
+    maxNativeZoom: 19
+}).addTo(mymap);
+
+#+END_SRC
+
+* Общие настройки файла                                            :noexport:
+
+#+DESCRIPTION: A literate programming approach to p5js coding
+#+PROPERTY:    header-args:javascript  :tangle ../map.js
+#+PROPERTY:    header-args:html :tangle ../index.html
+#+PROPERTY:    header-args:css :tangle ../styles.css
+#+PROPERTY:    header-args:shell  :tangle no
+#+PROPERTY:    header-args        :results silent   :eval no-export   :comments org
+#+OPTIONS:     skip:nil author:nil email:nil creator:nil timestamp:nil
+#+INFOJS_OPT:  view:nil toc:nil ltoc:t mouse:underline buttons:0 path:http://orgmode.org/org-info.js
+
+#+OPTIONS:     todo:nil tasks:nil tags:nil
+
+# На выбор два варианта: без таблицы содержания
+# #+OPTIONS: toc:nil num:nil
+# .. и с таблицей (whn показывает до какого уровня заголовки должны нумероваться)
+#+OPTIONS: num:6 whn:0 toc:6 H:6
