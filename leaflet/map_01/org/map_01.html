@@ -326,11 +326,23 @@ Leaflet это библиотека на языке JavaScript с открыты
 Зачастую код для создания и подключения карты внедряют в блок <code>script</code> в тело файла <code>index.html</code>, но в целом удобнее вынести код в отдельный файл <code>map.js</code>. Важно, чтобы ссылка на этот файл была после создания блока <code>div</code> с идентификатором карты.
 </p>
 
+<p>
+Создаем объект карты.
+</p>
+
 <div class="org-src-container">
 
 <pre class="src src-javascript"><span style="color: #F0DFAF; font-weight: bold;">var</span> <span style="color: #DFAF8F;">mymap</span> = L.map(<span style="color: #CC9393;">'mapid'</span>).setView([56.03, 92.9], 12);
+</pre>
+</div>
 
-L.tileLayer(<span style="color: #CC9393;">'http://tile.openstreetmap.org/{z}/{x}/{y}.png'</span>, {
+<p>
+Добавляем на карту слой OpenStreetMap.
+</p>
+
+<div class="org-src-container">
+
+<pre class="src src-javascript">L.tileLayer(<span style="color: #CC9393;">'http://tile.openstreetmap.org/{z}/{x}/{y}.png'</span>, {
     opacity: 1.0,
     attribution: <span style="color: #CC9393;">'&lt;a href="https://www.openstreetmap.org/copyright"&gt;&#169; OpenStreetMap contributors, CC-BY-SA&lt;/a&gt;'</span>,
     minZoom: 1,
@@ -338,7 +350,6 @@ L.tileLayer(<span style="color: #CC9393;">'http://tile.openstreetmap.org/{z}/{x}
     minNativeZoom: 0,
     maxNativeZoom: 19
 }).addTo(mymap);
-
 </pre>
 </div>
 </div>
