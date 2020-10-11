@@ -298,7 +298,7 @@ Leaflet это библиотека на языке JavaScript с открыты
 </p>
 
 <p>
-Сейчас основная задача — убрать поля и полосы прокрутки, которые возникнут и будт мешать восприятию, если ничего не предпринять.
+Сейчас основная задача — убрать поля, чтобы карта занимала всё доступное пространство веб-страницы.
 </p>
 
 <div class="org-src-container">
@@ -322,19 +322,13 @@ Leaflet это библиотека на языке JavaScript с открыты
 <div id="outline-container-sec-4" class="outline-2">
 <h2 id="sec-4">Веб-карта</h2>
 <div class="outline-text-2" id="text-4">
+<p>
+Зачастую код для создания и подключения карты внедряют в блок <code>script</code> в тело файла <code>index.html</code>, но в целом удобнее вынести код в отдельный файл <code>map.js</code>. Важно, чтобы ссылка на этот файл была после создания блока <code>div</code> с идентификатором карты.
+</p>
+
 <div class="org-src-container">
 
 <pre class="src src-javascript"><span style="color: #F0DFAF; font-weight: bold;">var</span> <span style="color: #DFAF8F;">mymap</span> = L.map(<span style="color: #CC9393;">'mapid'</span>).setView([56.03, 92.9], 12);
-<span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">mymap.options.crs = L.CRS.EPSG3395;</span>
-
-<span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">L.tileLayer('http://vec01.maps.yandex.net/tiles?l=map&amp;x={x}&amp;y={y}&amp;z={z}', {</span>
-<span style="color: #5F7F5F;">//     </span><span style="color: #7F9F7F;">opacity: 1.0,</span>
-<span style="color: #5F7F5F;">//     </span><span style="color: #7F9F7F;">attribution: '',</span>
-<span style="color: #5F7F5F;">//     </span><span style="color: #7F9F7F;">minZoom: 1,</span>
-<span style="color: #5F7F5F;">//     </span><span style="color: #7F9F7F;">maxZoom: 28,</span>
-<span style="color: #5F7F5F;">//     </span><span style="color: #7F9F7F;">minNativeZoom: 0,</span>
-<span style="color: #5F7F5F;">//     </span><span style="color: #7F9F7F;">maxNativeZoom: 18</span>
-<span style="color: #5F7F5F;">// </span><span style="color: #7F9F7F;">}).addTo(mymap);  </span>
 
 L.tileLayer(<span style="color: #CC9393;">'http://tile.openstreetmap.org/{z}/{x}/{y}.png'</span>, {
     opacity: 1.0,
