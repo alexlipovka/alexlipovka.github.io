@@ -1,5 +1,5 @@
 #+LANGUAGE: ru
-#+TITLE: Leaflet — map 01
+#+TITLE: Leaflet — map 02
 #+AUTHOR: Alex Lipovka
 #+EMAIL: alex.lipovka@gmail.com
 
@@ -7,7 +7,7 @@
 
 Пример разработки веб-карт на основе бибилиотеки [[https://leafletjs.com/][Leaflet]] с помощью [[https://www.gnu.org/software/emacs/][emacs]] и [[https://orgmode.org/][orgmode]] в стиле [[http://www.literateprogramming.com/][literate programming]].
 
-[[rel:./map_01.org][Исходный код данной страницы]] и [[../index.html][результат]]. 
+[[rel:./map_02.org][Исходный код данной страницы]] и [[../index.html][результат]]. 
 
 Экспорт исходников в файл настройки горячей клавишей =C-c C-v C-t=.
 
@@ -107,7 +107,7 @@ L.tileLayer('http://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 
 * Общие настройки файла                                            :noexport:
 
-#+DESCRIPTION: A literate programming approach to Leaflet coding
+#+DESCRIPTION: A literate programming approach to Leaflet
 #+PROPERTY:    header-args:javascript  :tangle ../map.js
 #+PROPERTY:    header-args:html :tangle ../index.html
 #+PROPERTY:    header-args:css :tangle ../styles.css

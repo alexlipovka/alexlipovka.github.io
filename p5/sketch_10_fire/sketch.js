@@ -48,7 +48,7 @@ function mouseDragged() {
 function cool() {
 	cooling.loadPixels();
 	let xoff = 0.0;
-	let increment = 0.01;
+	let increment = 0.1;
 	for (let x = 0; x < cooling.width; x++) {
 		xoff += increment;
 		let yoff = ystart;

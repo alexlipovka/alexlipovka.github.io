@@ -5,10 +5,10 @@ function setup() {
 
 function draw() {
 	//заливка однородным тоном
-	background(0);
+	background(100);
 	//отрисовка курсора
 	ellipseMode(CENTER);
-	ellipse(mouseX, mouseY, 9, 9);
+	ellipse(mouseX, mouseY, 19, 19);
 }
 
 function windowResized() {

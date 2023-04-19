@@ -36,10 +36,10 @@ function draw() {
 	background(0);
 	// ray.lookAt(mouseX, mouseY);
 	for (let wall of walls) {
-		// wall.show();
+		wall.show();
 	}
-	// particle.update(mouseX, mouseY);
-	particle.update(noise(xoff) * width, noise(yoff) * height);
+	particle.update(mouseX, mouseY);
+	// particle.update(noise(xoff) * width, noise(yoff) * height);
 	particle.show();
 	particle.look(walls);
 

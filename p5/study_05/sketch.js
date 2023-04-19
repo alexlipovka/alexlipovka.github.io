@@ -24,7 +24,7 @@ let newCoords = [];
 let dragged = false;
 
 let noisePos = 0.0;
-let noiseStep = 0.005;
+let noiseStep = 0.01;
 
 function preload() {
 	border = loadJSON('./assets/border.geojson');
@@ -96,19 +96,6 @@ function draw() {
 		vertex(pt.x, pt.y);
 	}
 	endShape(CLOSE);
-
-	noFill();
-	stroke(0, 0, 255);
-	strokeWeight(2);
-	for (let z = 0; z < zoning.coords.length; z++) {
-		beginShape();
-		for (let i = 0; i < zoning.coords[z].length; i++) {
-			let pt = myMap.latLngToPixel(zoning.coords[z][i][1], zoning.coords[z][i][0]);
-			vertex(pt.x, pt.y);
-		}
-		endShape(CLOSE);
-	}
-
 	noStroke();
 	fill(0);
 	for (let z = 0; z < zoning.coords.length; z++) {
@@ -122,16 +109,29 @@ function draw() {
 		// print(ptInPoly(point, zoning.coords[i]));
 		if (ptInPoly(point, zoning.coords[z])) {
 			text(zoning.kz[z], mouseX + 10, mouseY - 10);
-			fill(0, 255, 0, 100);
+			fill(255, 0, 0, 200);
 			noStroke();
 			beginShape();
 			for (let i = 0; i < zoning.coords[z].length - 1; i++) {
 				let pt = myMap.latLngToPixel(zoning.coords[z][i][1], zoning.coords[z][i][0]);
-				vertex(pt.x + noise(noisePos + i) * 80 - 40, pt.y + noise(noisePos + i) * 80 - 40);
+				vertex(pt.x + noise(noisePos + i) * 40 - 20, pt.y + noise(noisePos + i) * 40 - 20);
 			}
 			endShape(CLOSE);
 		}
 	}
+
+	noFill();
+	stroke(0, 0, 255);
+	strokeWeight(2);
+	for (let z = 0; z < zoning.coords.length; z++) {
+		beginShape();
+		for (let i = 0; i < zoning.coords[z].length; i++) {
+			let pt = myMap.latLngToPixel(zoning.coords[z][i][1], zoning.coords[z][i][0]);
+			vertex(pt.x, pt.y);
+		}
+		endShape(CLOSE);
+	}
+
 
 	ellipseMode(CENTER);
 
